@@ -2,90 +2,102 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Heavenly Wear | Luxury Modest Fashion</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heavenly Wear | Elegan & Modern</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --rose: #F7CAC9; --serenity: #92A8D1; }
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, var(--rose) 0%, var(--serenity) 100%); background-attachment: fixed; }
+        .glass { background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; }
+        .product-card:hover { transform: translateY(-10px); transition: 0.3s; }
+        .scroll-hide::-webkit-scrollbar { display: none; }
+    </style>
 </head>
-<body>
+<body class="text-gray-800">
 
-    <nav class="navbar">
-        <div class="container nav-wrapper">
-            <div class="logo">Heavenly Wear</div>
-            <div class="nav-links" id="navLinks">
-                <a href="#home">Home</a>
-                <a href="#analysis">AI Stylist</a>
-                <a href="#catalog">Catalog</a>
-                <a href="cart.html" class="cart-link">
-                    <span>🛒</span>
-                    <span id="cart-count" class="cart-badge">0</span>
-                </a>
-            </div>
-            <div class="mobile-menu" onclick="toggleMenu()">
-                <span></span><span></span><span></span>
-            </div>
+    <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div class="glass p-10 w-full max-w-sm text-center shadow-2xl">
+            <h2 class="text-3xl font-bold mb-6 text-white" style="font-family: 'Playfair Display'">Heavenly Wear</h2>
+            <p class="text-sm mb-6 text-gray-700">Masuk untuk pengalaman belanja personal</p>
+            <input type="text" placeholder="Email atau No. Telepon" class="w-full p-3 mb-4 rounded-xl border-none focus:ring-2 focus:ring-rose-300 outline-none shadow-inner">
+            <button onclick="document.getElementById('login-modal').remove()" class="w-full bg-white text-[#92A8D1] font-bold py-3 rounded-xl hover:bg-rose-100 transition">Masuk</button>
         </div>
-    </nav>
+    </div>
 
-    <header id="home" class="hero">
-        <div class="container hero-grid">
-            <div class="hero-text">
-                <span class="tagline">Premium Hijab Collection</span>
-                <h1>Anggun dalam <br>Setiap Langkah</h1>
-                <p>Temukan koleksi hijab terbaik yang dirancang khusus untuk kenyamanan dan memancarkan cahaya kecantikan muslimah.</p>
-                <div class="hero-btns">
-                    <a href="#catalog" class="btn primary">Belanja Sekarang</a>
-                    <a href="#analysis" class="btn secondary">Cek AI Stylist</a>
-                </div>
+    <header class="p-6">
+        <nav class="glass flex justify-between items-center px-8 py-4 mb-10">
+            <h1 class="text-2xl font-bold italic">Heavenly Wear</h1>
+            <div class="flex gap-6 items-center">
+                <a href="#edukasi" class="hover:text-white">Edukasi</a>
+                <a href="cart.html" class="text-2xl">🛒</a>
             </div>
-            <div class="hero-img-box">
-                <div class="hero-circle"></div>
+        </nav>
+
+        <div class="glass p-10 text-center max-w-4xl mx-auto mb-10">
+            <h2 class="text-4xl font-bold mb-4" style="font-family: 'Playfair Display'">Temukan Gaya Hijabmu</h2>
+            <p class="mb-8">Analisis wajah dan undertone untuk rekomendasi produk yang paling sesuai untukmu.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button onclick="document.getElementById('upload-input').click()" class="bg-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition">Ambil Foto / Galeri</button>
+                <input type="file" id="upload-input" class="hidden" accept="image/*" onchange="startAnalysis()">
             </div>
+            <div id="analysis-result" class="mt-6 font-semibold text-white hidden"></div>
         </div>
     </header>
 
-    <section id="analysis" class="section">
-        <div class="container">
-            <div class="ai-card">
-                <div class="ai-info">
-                    <h2>AI Personal Stylist</h2>
-                    <p>Unggah foto Anda, dan biarkan teknologi kami menentukan hijab yang paling serasi untuk wajah Anda.</p>
+    <main class="px-6 pb-20">
+        <h3 class="text-center text-3xl font-bold mb-10 text-white">Koleksi Terlaris</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div class="glass product-card p-4 overflow-hidden">
+                <img src="image/hijab-sport.jpeg" class="w-full h-64 object-cover rounded-xl mb-4" alt="Hijab Sport">
+                <h4 class="text-xl font-bold">Hijab Sport</h4>
+                <p class="text-gray-600">Rp 40.000</p>
+                <a href="product-detail.html?id=sport" class="block mt-4 bg-white/50 text-center py-2 rounded-lg font-semibold hover:bg-white transition">Lihat Detail</a>
+            </div>
+            <div class="glass product-card p-4 overflow-hidden">
+                <img src="image/segiempat-voal.jpeg" class="w-full h-64 object-cover rounded-xl mb-4" alt="Voal">
+                <h4 class="text-xl font-bold">Hijab Segi Empat Voal</h4>
+                <p class="text-gray-600">Rp 35.000</p>
+                <a href="product-detail.html?id=voal" class="block mt-4 bg-white/50 text-center py-2 rounded-lg font-semibold hover:bg-white transition">Lihat Detail</a>
+            </div>
+            </div>
+    </main>
+
+    <section id="edukasi" class="bg-white/20 py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-3xl font-bold mb-6">Mengapa Berhijab?</h3>
+            <p class="mb-10 text-lg">Hijab adalah simbol kehormatan dan keanggunan. Kami hadir dengan berbagai pilihan kain seperti Voal yang sejuk, Viscose yang elegan, hingga Ceruty yang mewah untuk menemani langkahmu.</p>
+            
+            <div class="flex overflow-x-auto gap-6 pb-6 scroll-hide">
+                <div class="flex-shrink-0 w-80 glass p-2">
+                    <iframe class="w-full h-48 rounded-xl" src="https://www.youtube.com/embed/H2ev9kX3CYA" frameborder="0"></iframe>
                 </div>
-                <div class="ai-content-grid">
-                    <div class="upload-area">
-                        <div id="photoPreview" class="preview-square">
-                            <span>Pratinjau Foto</span>
-                        </div>
-                        <label for="faceInput" class="btn-outline">Pilih Galeri/Kamera</label>
-                        <input type="file" id="faceInput" accept="image/*" capture="user" hidden>
-                    </div>
-                    <div class="result-area">
-                        <button class="btn primary full-width" onclick="startAIAnalysis()">Analisis Wajah</button>
-                        <div id="aiLoader" class="loader" style="display:none">Memindai wajah...</div>
-                        <div id="aiResult" class="res-card" style="display:none">
-                            <div class="res-row"><span>Bentuk:</span> <strong id="faceShape">-</strong></div>
-                            <div class="res-row"><span>Tone:</span> <strong id="skinUndertone">-</strong></div>
-                            <p id="aiSuggestion" class="res-text"></p>
-                        </div>
-                    </div>
+                <div class="flex-shrink-0 w-80 glass p-2">
+                    <iframe class="w-full h-48 rounded-xl" src="https://www.youtube.com/embed/-SkMvc0muLY" frameborder="0"></iframe>
+                </div>
+                <div class="flex-shrink-0 w-80 glass p-2">
+                    <iframe class="w-full h-48 rounded-xl" src="https://www.youtube.com/embed/WzKlSFJDISA" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="catalog" class="section">
-        <div class="container">
-            <h2 class="title-center">Koleksi Eksklusif</h2>
-            <div id="productGrid" class="catalog-grid"></div>
+    <footer class="p-10 text-center">
+        <div class="flex justify-center gap-10 mb-6 text-2xl">
+            <a href="#" title="Instagram">📸</a>
+            <a href="#" title="TikTok">♪</a>
+            <a href="https://wa.me/628xxxx" class="bg-green-500 text-white px-4 py-1 rounded-full text-lg">Konsultasi WA</a>
         </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Heavenly Wear. All Rights Reserved.</p>
-        </div>
+        <p>&copy; 2026 Heavenly Wear. All Rights Reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        function startAnalysis() {
+            const resultDiv = document.getElementById('analysis-result');
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerText = "Menganalisis Wajah... Hasil: Bentuk Oval, Undertone Warm. Rekomendasi: Hijab Pashmina Viscose warna Terracotta.";
+        }
+    </script>
 </body>
 </html>
