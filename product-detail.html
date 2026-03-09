@@ -1,183 +1,37 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Produk | Heavenly Wear</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        .detail-wrapper { padding: 40px 5%; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
-        .product-gallery { flex: 1; min-width: 300px; max-width: 500px; }
-        .product-gallery img { width: 100%; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: sticky; top: 100px; }
-        
-        .product-content { flex: 1.2; min-width: 300px; }
-        .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; color: #888; }
-        .product-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--text); margin-bottom: 10px; }
-        .price-tag { font-size: 1.8rem; color: var(--dark-pink); font-weight: 600; margin-bottom: 20px; }
-        
-        .color-section { margin: 30px 0; }
-        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; }
-        .color-item { border: 1px solid #ddd; padding: 8px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.3s; font-size: 0.8rem; }
-        .color-item:hover { border-color: var(--dark-pink); background: var(--pink); }
-        .color-item.active { border-color: var(--dark-pink); background: var(--dark-pink); color: white; }
-
-        .qty-control { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
-        .qty-btn { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem; }
-        #qty-val { font-weight: 600; font-size: 1.1rem; }
-
-        .action-btns { display: flex; gap: 15px; margin-bottom: 40px; }
-        .btn-add-cart { flex: 1; padding: 15px; border-radius: 30px; border: 2px solid var(--dark-pink); color: var(--dark-pink); background: transparent; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-add-cart:hover { background: var(--dark-pink); color: white; }
-        .btn-buy-now { flex: 1; padding: 15px; border-radius: 30px; border: none; background: var(--dark-pink); color: white; font-weight: 600; cursor: pointer; }
-
-        .tabs { border-top: 1px solid #eee; padding-top: 30px; }
-        .tab-content { line-height: 1.8; color: #666; font-size: 0.95rem; }
-        .review-card { background: var(--white); padding: 15px; border-radius: 12px; margin-top: 15px; border-left: 4px solid var(--pink); }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="logo" onclick="location.href='index.html'" style="cursor:pointer">Heavenly Wear</div>
-        <div class="nav-links">
-            <a href="index.html">Kembali ke Katalog</a>
-            <a href="cart.html" class="cart-btn">🛒 <span id="cart-count">0</span></a>
+<body class="p-8">
+    <div class="glass max-w-5xl mx-auto p-8 grid md:grid-cols-2 gap-10">
+        <div>
+            <img id="detail-img" src="" class="w-full rounded-2xl shadow-lg">
         </div>
-    </nav>
-
-    <div class="detail-wrapper">
-        <div class="product-gallery">
-            <img id="main-img" src="" alt="Produk">
-        </div>
-
-        <div class="product-content">
-            <div class="breadcrumb">Home / Katalog / <span id="crumb-name">Detail</span></div>
-            <h1 id="prod-title" class="product-title">Memuat...</h1>
-            <div id="prod-price" class="price-tag">Rp 0</div>
+        <div>
+            <h2 id="detail-title" class="text-4xl font-bold mb-2"></h2>
+            <p id="detail-price" class="text-2xl text-blue-600 mb-6"></p>
+            <p id="detail-desc" class="mb-6 text-gray-700 leading-relaxed"></p>
             
-            <div class="tabs">
-                <h3>Deskripsi Rinci</h3>
-                <p id="prod-desc" class="tab-content"></p>
-            </div>
-
-            <div class="color-section">
-                <p><strong>Pilih Warna yang Tersedia:</strong></p>
-                <div id="color-grid" class="color-grid">
+            <div class="mb-6">
+                <label class="font-bold block mb-2">Pilih Warna:</label>
+                <div class="flex gap-2 flex-wrap" id="color-options">
                     </div>
             </div>
 
-            <p><strong>Jumlah:</strong></p>
-            <div class="qty-control">
-                <button class="qty-btn" onclick="updateQty(-1)">-</button>
-                <span id="qty-val">1</span>
-                <button class="qty-btn" onclick="updateQty(1)">+</button>
+            <div class="mb-8">
+                <label class="font-bold block mb-2">Jumlah & Stok:</label>
+                <div class="flex items-center gap-4">
+                    <input type="number" value="1" min="1" class="w-16 p-2 rounded-lg border">
+                    <span class="text-sm text-green-600">Tersedia: <span id="stok-num">45</span> pcs</span>
+                </div>
             </div>
 
-            <div class="action-btns">
-                <button class="btn-add-cart" onclick="addToCart()">Masukkan Keranjang</button>
-                <button class="btn-buy-now" onclick="buyNow()">Beli Sekarang</button>
+            <div class="flex gap-4">
+                <button onclick="addToCart()" class="flex-1 bg-serenity py-4 rounded-xl font-bold text-white hover:opacity-80 transition">Tambah ke Keranjang</button>
+                <button onclick="buyNow()" class="flex-1 bg-rose-300 py-4 rounded-xl font-bold text-gray-800 hover:opacity-80 transition">Beli Sekarang</button>
             </div>
 
-            <div class="reviews">
-                <h3>Ulasan Pelanggan (Puas)</h3>
-                <div class="review-card">
-                    <p>⭐⭐⭐⭐⭐ "Warnanya sangat beragam dan cantik-cantik! Bahannya beneran premium, tegak di dahi dan nggak bikin budeg. Pengiriman ke Jakarta cuma 1 hari."</p>
-                    <small>— <strong>Dian Sastrowardoyo</strong> (Verified Buyer)</small>
-                </div>
-                <div class="review-card">
-                    <p>⭐⭐⭐⭐⭐ "Sudah langganan di Heavenly Wear. Pashminanya flowy banget, gampang diatur bahkan tanpa jarum pentul sekalipun. Sukses terus!"</p>
-                    <small>— <strong>Maudy A.</strong> (Verified Buyer)</small>
-                </div>
+            <div class="mt-10 pt-10 border-t">
+                <h4 class="font-bold mb-4">Ulasan Pelanggan (120+)</h4>
+                <div class="bg-white/30 p-4 rounded-xl mb-2 italic">"Bahannya sangat adem dan warnanya sesuai foto! - Sarah"</div>
+                <div class="bg-white/30 p-4 rounded-xl italic">"Packaging rapi, pengiriman cepat. Bakal beli lagi! - Amira"</div>
             </div>
         </div>
     </div>
-
-    <script>
-        // Database Produk (Pastikan sama dengan index.html)
-        const products = [
-            { id: 1, name: "Hijab Sport", price: 40000, img: "image/hijab-sport.jpeg", desc: "Didesain khusus untuk muslimah aktif. Menggunakan bahan Spandex Jersey berkualitas tinggi yang elastis, dingin di kulit, dan memiliki sirkulasi udara optimal. Tidak bergeser saat melakukan aktivitas berat seperti lari atau yoga." },
-            { id: 2, name: "Segi Empat Voal", price: 35000, img: "image/segiempat-voal.jpeg", desc: "Primadona setiap muslimah. Bahan Ultra Fine Voal yang sangat lembut namun tetap tegak sempurna di dahi. Serat kainnya padat, tidak menerawang, dan memberikan kesan elegan untuk look harian maupun formal." },
-            { id: 3, name: "Pashmina Viscose", price: 45000, img: "image/pashmina-viscose.jpeg", desc: "Sentuhan kemewahan dalam kenyamanan. Tekstur serat viscose alami memberikan efek cooling (dingin). Bahannya tidak licin, mudah dibentuk, dan memiliki ketebalan yang pas sehingga tidak mencekik leher." },
-            { id: 4, name: "Pashmina Ceruty", price: 42000, img: "image/pashmina-ceruty.jpeg", desc: "Pashmina favorit untuk acara pesta atau hangout. Bahan Ceruty Baby Doll Original yang jatuh (flowy), memiliki tekstur berpasir halus yang mewah, dan sangat panjang untuk berbagai gaya hijab kreatif." }
-        ];
-
-        // Daftar Warna Banyak (20 Warna)
-        const allColors = ["Midnight Black", "Snow White", "Dusty Pink", "Sage Green", "Navy Blue", "Maroon", "Milo", "Beige", "Terracotta", "Lilac", "Silver Gray", "Olive", "Rose Gold", "Broken White", "Coffee", "Nude", "Denim", "Mustard", "Deep Teal", "Mauve"];
-
-        let currentQty = 1;
-        let selectedColor = "";
-
-        // Get ID from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const pid = urlParams.get('id');
-        const product = products.find(p => p.id == pid);
-
-        if (product) {
-            document.title = `${product.name} | Heavenly Wear`;
-            document.getElementById('main-img').src = product.img;
-            document.getElementById('prod-title').innerText = product.name;
-            document.getElementById('crumb-name').innerText = product.name;
-            document.getElementById('prod-price').innerText = `Rp ${product.price.toLocaleString()}`;
-            document.getElementById('prod-desc').innerText = product.desc;
-
-            // Generate Colors
-            const colorGrid = document.getElementById('color-grid');
-            allColors.forEach(warna => {
-                const item = document.createElement('div');
-                item.className = 'color-item';
-                item.innerText = warna;
-                item.onclick = function() {
-                    document.querySelectorAll('.color-item').forEach(el => el.classList.remove('active'));
-                    item.classList.add('active');
-                    selectedColor = warna;
-                };
-                colorGrid.appendChild(item);
-            });
-        }
-
-        function updateQty(val) {
-            currentQty += val;
-            if (currentQty < 1) currentQty = 1;
-            document.getElementById('qty-val').innerText = currentQty;
-        }
-
-        function addToCart() {
-            if (!selectedColor) {
-                alert("Silakan pilih warna hijab cantikmu terlebih dahulu!");
-                return;
-            }
-
-            let cart = JSON.parse(localStorage.getItem('heavenlyCart')) || [];
-            cart.push({
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                img: product.img,
-                color: selectedColor,
-                qty: currentQty
-            });
-
-            localStorage.setItem('heavenlyCart', JSON.stringify(cart));
-            updateCartCount();
-            alert(`Berhasil! ${product.name} (${selectedColor}) telah masuk keranjang.`);
-        }
-
-        function buyNow() {
-            if (!selectedColor) {
-                alert("Silakan pilih warna dulu ya ukh!");
-                return;
-            }
-            addToCart();
-            window.location.href = 'cart.html';
-        }
-
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('heavenlyCart')) || [];
-            document.getElementById('cart-count').innerText = cart.length;
-        }
-        
-        updateCartCount();
-    </script>
 </body>
-</html>
